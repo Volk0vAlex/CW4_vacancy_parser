@@ -1,16 +1,42 @@
-# This is a sample Python script.
+from src.hh_api import HeadHunter
+from src.jsonclass import JSONFile
+from src.sj_api import SuperJob
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def main():
+    """ Создание экземпляра класса для работы с API сайтов с вакансиями"""
+    keyword = "Python"
+    hh = HeadHunter(keyword)
+    sj = SuperJob(keyword)
+    vacancies_json = []
+    vacancies = []
 
+    # Получение вакансий с разных платформ
+    for api in (hh,sj):
+        vacancies_json.extend(api.get_vacancies(2))
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    #запись в файл
+    js = JSONFile()
+    js.save_vacancies(vacancies_json)
 
+    while 1==1:
+        user_input=input(
+            "1 - Вывести список вакансий\n"
+            "2 - Вывести отсортированный список вакансий\n"
+            "3 - Вывести список вакансий с мин. зарплатой не меньше указанной\n"
+            "0 - Выход\n"
+        )
+        if user_input == "0":
+            break
+        elif user_input == "1":
+            vacancies=js.read_vacancies()
+        elif user_input=="2":
+            vacancies=js.sort_by_salary()
+        elif user_input=="3":
+            min_salary=input("Введите мин. зарплату: ")
+            vacancies=js.get_by_salary(min_salary)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+        for vacancy in vacancies:
+            print(vacancy, end="\n\n")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    main()
