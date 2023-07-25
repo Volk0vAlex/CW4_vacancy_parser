@@ -1,6 +1,6 @@
-from abstract import JSONABS
+from src.abstract import JSONABS
 import json
-from vacancy import Vacancy
+from src.vacancy import Vacancy
 
 
 class JSONFile(JSONABS):

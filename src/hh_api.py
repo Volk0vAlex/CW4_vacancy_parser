@@ -1,5 +1,6 @@
-from abstract import GetVacanciesAbstractClass
+from src.abstract import GetVacanciesAbstractClass
 import requests
+
 
 class HeadHunter(GetVacanciesAbstractClass):
     """ Создан класс для получения вакансий с hh.ru """
@@ -12,7 +13,7 @@ class HeadHunter(GetVacanciesAbstractClass):
             "page": 0,
             "per_page": 100
         }
-        self.vacancies_url = self.url + "vacancies"
+        self.vacancies_url = self.url + "/vacancies"
         self.__full_vacancies = []
         self.salary_from = None
         self.salary_to = None
@@ -61,13 +62,13 @@ class HeadHunter(GetVacanciesAbstractClass):
             vacancies.append({
                 "id": item["id"],
                 "job_name": item["name"],
-                "job_url": item["alternative_url"],
+                "job_url": item["alternate_url"],
                 "requirement": item['snippet']["requirement"],
                 "responsibility": item['snippet']["responsibility"],
-                "salary_from": self.__salary_from,
+                "salary_from": self.salary_from,
                 "salary_to": self.salary_to,
                 "salary_str": self.salary_str,
-                "location": self.get_adress(item["adress"]),
+                "location": self.get_address(item["address"]),
                 "firm": item["employer"]["name"],
                 "source": "HeadHunter"
             })
