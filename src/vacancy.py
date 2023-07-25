@@ -60,7 +60,4 @@ class Vacancy:
         return self_salary_from == other_salary_from
 
     def __str__(self):
-        return f"Вакансия: {self.job_name}\nЗарплата:{self.salary_str}\nURL:{self.job_url}\nГород: {self.location}\nОрганизация: {self.firm_name}\nТребования:{self.reqiurements}\n"
-
-
-
+        return f"Вакансия: {self.job_name}\nЗарплата:{self.salary_str}\nURL:{self.job_url}\nГород: {self.location}\nОрганизация: {self.firm_name}\nТребования:{self.requirements}\n"
